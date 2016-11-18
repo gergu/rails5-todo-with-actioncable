@@ -2,17 +2,22 @@
 //= require todos/list
 
 $(document).ready(function() {
-  let list = new List('#list tbody');
+  window.todoList = new List('#list tbody');;
 
-  $(document).on('click', '#add-item', () => {
-    let itemInput = $('#item-name');
-    list.addItem(itemInput.val());
-    itemInput.val('');
+  $.get('/todo_items', {
+    dataType: 'json',
+    format: 'json'
+  }).success(function(data) {
+    $.each(data.todo_items, function(index, item) {
+      todoList.addItem(item.content);
+    });
   });
 
   $(document).on('click', '.remove-item', e => {
     let id = $(e.toElement).closest('tr').data('id');
-    list.removeItem(id);
-    list.reorderItems(id);
+    todoList.removeItem(id);
+    todoList.reorderItems(id);
   });
+
+
 });
