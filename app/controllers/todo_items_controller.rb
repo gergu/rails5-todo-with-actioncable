@@ -16,6 +16,10 @@ class TodoItemsController < ApplicationController
   end
 
   def destroy
+    @todo_item = TodoItem.find(params[:id])
+    @todo_item.destroy
+    ActionCable.server.broadcast 'todo_items', todo_item: @todo_item, action: 'delete'
+    head :ok
   end
 
   private

@@ -4,19 +4,20 @@ class List {
     this.lastId = 0;
     this.elements = new Map();
   }
-  addItem(name) {
+  addItem(name, id=null) {
+    let listId = id || this.lastId;
     if(name.length < 1) {
       return;
     }
     this.lastId++;
     let item = new Item({
       name: name,
-      id: this.lastId,
+      id: listId,
       orderNumber: this.elements.size + 1,
       container: this.container
     });
     item.appendToList();
-    this.elements.set(this.lastId, item);
+    this.elements.set(listId, item);
   }
   removeItem(id) {
     let index = parseInt(id);

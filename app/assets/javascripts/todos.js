@@ -9,14 +9,16 @@ $(document).ready(function() {
     format: 'json'
   }).success(function(data) {
     $.each(data.todo_items, function(index, item) {
-      todoList.addItem(item.content);
+      todoList.addItem(item.content, item.id);
     });
   });
 
   $(document).on('click', '.remove-item', e => {
     let id = $(e.toElement).closest('tr').data('id');
-    todoList.removeItem(id);
-    todoList.reorderItems(id);
+    $.ajax({
+      url: `/todo_items/${id}`,
+      method: 'DELETE'
+    });
   });
 
 
