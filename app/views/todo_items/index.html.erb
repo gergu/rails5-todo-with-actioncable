@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>Sample ToDo app</h2>
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">List of items</div>
+
+    <div class="panel-body">
+      <%= form_for @todo_item, remote: true do |f| %>
+        <div class="input-group">
+          <%= f.text_field :content, id: 'item-name', class: 'form-control', placeholder: 'Type todo item here' %>
+          <span class="input-group-btn">
+            <%= f.submit 'Add', id: 'add-item', class: 'btn btn-primary' %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+
+    <table id="list" class="table table-hover">
+      <tbody>
+      </tbody>
+    </table>
+
+  </div>
+</div>
